@@ -52,6 +52,21 @@ def health():
     return jsonify({"status": "healthy"})
 
 
+@app.route("/list")
+def list_requests():
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("SELECT id, datetime, remarks FROM request ORDER BY id DESC")
+            rows = cur.fetchall()
+        return jsonify([
+            {"id": r[0], "datetime": r[1].isoformat(), "remarks": r[2]}
+            for r in rows
+        ])
+    finally:
+        conn.close()
+
+
 @app.route("/save")
 def save():
     remarks = request.args.get("remarks", "")
