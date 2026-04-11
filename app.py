@@ -18,7 +18,7 @@ def get_db_connection():
     return psycopg2.connect(
         host=os.environ["POSTGRES_HOST"],
         port=os.environ["POSTGRES_PORT"],
-        database=os.environ["POSTGRES_DB"],
+        database=os.environ["POSTGRES_DATABASE"],
         user=os.environ["POSTGRES_USER"],
         password=os.environ["POSTGRES_PASSWORD"],
     )
